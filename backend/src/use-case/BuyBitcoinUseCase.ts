@@ -1,4 +1,3 @@
-import { BitcoinPriceRedisCache } from "../repository/BitcoinPriceRedisCache";
 import { AccountEntity } from "../entity/AccountEntity";
 import { AccountAndWalletRepository } from "../repository/AccountAndWalletRepository";
 import { AccountDoesntExistsError } from "../errors/AccountDoesntExistsError";
@@ -8,12 +7,13 @@ import { BitcoinWalletEntity } from "../entity/BitcoinWalletEntity";
 import { BuyTransactionBitcoinEntity } from "../entity/BuyTransactionBitcoinEntity";
 import { injectable } from "tsyringe";
 import { SendPurchaseBitcoinMail } from "../service/email/SendPurchaseBitcoinMail";
+import { GetBitcoinPriceUseCase } from "./GetBitcoinPriceUseCase";
 
 @injectable()
 export class BuyBitcoinUseCase {
   constructor(
-    private cacheRepository: BitcoinPriceRedisCache,
     private accountAndWalletRepository: AccountAndWalletRepository,
+    private getBitcoinPriceUseCase: GetBitcoinPriceUseCase,
     private sendPurchaseBitcoinMail: SendPurchaseBitcoinMail,
   ) {}
 
@@ -28,11 +28,11 @@ export class BuyBitcoinUseCase {
       throw new NoEnoughBalanceError();
     }
 
-    const bitcoinCurrentPrice = await this.cacheRepository.getCache();
+    const bitcoinCurrentPrice = await this.getBitcoinPriceUseCase.execute();
 
     account.wallet.balance -= buyBitcoinDto.amount;
 
-    const amountBitcoinBought = buyBitcoinDto.amount / bitcoinCurrentPrice.sell;
+    const amountBitcoinBought = buyBitcoinDto.amount / bitcoinCurrentPrice.buy;
 
     account.wallet.bitcoinWallet = new BitcoinWalletEntity({
       amount: account.wallet.bitcoinWallet

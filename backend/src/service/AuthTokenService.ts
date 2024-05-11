@@ -6,7 +6,10 @@ import { AuthorizationTokenExpiredError } from "../errors/AuthorizationTokenExpi
 export class AuthTokenService {
   static verifyTokenIsValid(token: string): JwtPayload | string | undefined {
     try {
-      return verify(token, process.env.JWT_SECRET_KEY || "");
+      return verify(
+        token.replace("Bearer ", ""),
+        process.env.JWT_SECRET_KEY || "",
+      );
     } catch (e) {
       const error = e as { message: string };
       if (error.message === "jwt expired") {
