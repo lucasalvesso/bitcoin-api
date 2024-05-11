@@ -6,7 +6,7 @@ export abstract class Database<T> implements IDatabase<T> {
   public connection: DataSource;
   public manager: EntityManager;
 
-  constructor() {
+  protected constructor() {
     this.connection = AppDataSource;
     this.manager = this.connection.createEntityManager();
   }

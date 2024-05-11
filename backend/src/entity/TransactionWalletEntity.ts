@@ -12,7 +12,7 @@ export class TransactionWalletEntity {
   constructor(item: Partial<TransactionWalletEntity>) {
     item.amount = item.amount || 0;
 
-    Object.assign(this, item);
+    Object.assign(this, { amount: item.amount });
   }
 
   @PrimaryGeneratedColumn()

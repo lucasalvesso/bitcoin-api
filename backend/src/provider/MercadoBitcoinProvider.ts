@@ -4,7 +4,7 @@ import { injectable } from "tsyringe";
 
 @injectable()
 export class MercadoBitcoinProvider {
-  private url = "https://www.mercadobitcoin.net/api/BTC/ticker/";
+  private readonly url = "https://www.mercadobitcoin.net/api/BTC/ticker/";
 
   async getBitcoinData(): Promise<MercadoBitcoinTickerDto> {
     try {

@@ -17,7 +17,7 @@ export class BitcoinController {
   }
 
   async sellBitcoin(req: Request, res: Response) {
-    res.status(200).json("Bitcoin sold successfully");
+    res.status(200).json({ message: "Bitcoin sold successfully" });
   }
 
   async buyBitcoin(req: Request, res: Response) {
@@ -25,7 +25,7 @@ export class BitcoinController {
       req.loggedUser.email,
       new BuyBitcoinDto(req.body),
     );
-    res.status(200).json("Bitcoin bought successfully");
+    res.status(200).json({ messsage: "Bitcoin bought successfully" });
   }
 
   async getPosition(req: Request, res: Response) {

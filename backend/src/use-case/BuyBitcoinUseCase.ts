@@ -7,12 +7,14 @@ import { NoEnoughBalanceError } from "../errors/NoEnoughBalanceError";
 import { BitcoinWalletEntity } from "../entity/BitcoinWalletEntity";
 import { BuyTransactionBitcoinEntity } from "../entity/BuyTransactionBitcoinEntity";
 import { injectable } from "tsyringe";
+import { SendPurchaseBitcoinMail } from "../service/email/SendPurchaseBitcoinMail";
 
 @injectable()
 export class BuyBitcoinUseCase {
   constructor(
     private cacheRepository: BitcoinPriceRedisCache,
     private accountAndWalletRepository: AccountAndWalletRepository,
+    private sendPurchaseBitcoinMail: SendPurchaseBitcoinMail,
   ) {}
 
   async execute(email: string, buyBitcoinDto: BuyBitcoinDto): Promise<void> {
@@ -38,12 +40,10 @@ export class BuyBitcoinUseCase {
         : amountBitcoinBought,
       id: account.wallet.bitcoinWallet?.id,
       walletId: account.walletId,
+      buyTransactions: account.wallet.bitcoinWallet.buyTransactions || [],
     });
 
-    account.wallet.bitcoinWallet.buyTransactions =
-      account.wallet.bitcoinWallet.buyTransactions || [];
-
-    account.wallet.bitcoinWallet.buyTransactions.push(
+    account.wallet.bitcoinWallet.buyTransactions?.push(
       new BuyTransactionBitcoinEntity({
         walletId: account.walletId,
         amount: amountBitcoinBought,
@@ -52,6 +52,10 @@ export class BuyBitcoinUseCase {
     );
 
     await this.accountAndWalletRepository.save(account);
+    await this.sendPurchaseBitcoinMail.execute(
+      { amount: amountBitcoinBought, paid: buyBitcoinDto.amount },
+      [account.email],
+    );
   }
 
   private async getAccountByEmail(

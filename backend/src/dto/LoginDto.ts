@@ -10,7 +10,7 @@ export class LoginDto {
       throw new Error("password not valid");
     }
 
-    Object.assign(this, data);
+    Object.assign(this, { email: data.email, password: data.password });
   }
 
   email: AccountEntity["email"];

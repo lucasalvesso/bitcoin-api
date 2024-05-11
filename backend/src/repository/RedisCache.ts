@@ -2,7 +2,7 @@ import { createClient } from "redis";
 
 export abstract class RedisCache {
   private client: any;
-  private cacheName: "BITCOIN_PRICE";
+  private readonly cacheName: "BITCOIN_PRICE";
 
   protected constructor(cacheName: RedisCache["cacheName"]) {
     this.client = createClient({

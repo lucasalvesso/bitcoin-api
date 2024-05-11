@@ -22,7 +22,11 @@ export class AccountEntity {
       throw new Error("password not valid");
     }
 
-    Object.assign(this, data);
+    Object.assign(this, {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    });
   }
 
   @PrimaryGeneratedColumn()
