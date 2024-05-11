@@ -10,7 +10,7 @@ import { AuthTokenService } from "../service/AuthTokenService";
 export class LoginUseCase {
   constructor(private repository: AccountAndWalletRepository) {}
 
-  async exec(entity: LoginDto): Promise<string> {
+  async execute(entity: LoginDto): Promise<string> {
     const accountExists = await this.getAccountByEmail(entity);
 
     if (!accountExists) {

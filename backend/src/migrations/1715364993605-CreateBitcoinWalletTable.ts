@@ -5,13 +5,13 @@ import {
   TableForeignKey,
 } from "typeorm";
 
-export class CreateTransactionsHistoryTable1715287865518
+export class CreateBitcoinWalletTable1715364993605
   implements MigrationInterface
 {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "transactions_wallet_history",
+        name: "bitcoin_wallet",
         columns: [
           {
             name: "id",
@@ -36,9 +36,20 @@ export class CreateTransactionsHistoryTable1715287865518
         ],
       }),
     );
+
+    await queryRunner.createForeignKey(
+      "bitcoin_wallet",
+      new TableForeignKey({
+        columnNames: ["wallet_id"],
+        referencedColumnNames: ["id"],
+        referencedTableName: "wallet",
+        name: "FK_bitcoin_walletId",
+      }),
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("transactions_wallet_history");
+    await queryRunner.dropForeignKey("bitcoin_wallet", "FK_bitcoin_walletId");
+    await queryRunner.dropTable("bitcoin_wallet");
   }
 }

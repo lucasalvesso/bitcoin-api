@@ -1,28 +1,20 @@
 import { Database } from "./Database";
 import { injectable } from "tsyringe";
 import { AccountEntity } from "../entity/AccountEntity";
-import { EntityManager } from "typeorm";
+import { FindOptionsWhere } from "typeorm/find-options/FindOptionsWhere";
 
 @injectable()
-export class AccountAndWalletRepository {
-  private manager: EntityManager;
-
-  constructor(private database: Database) {
-    this.manager = database.getEntityManager();
+export class AccountAndWalletRepository extends Database<AccountEntity> {
+  constructor() {
+    super();
   }
 
-  async getByEmail<T extends Partial<AccountEntity>>(
+  async getByEmail(
     email: string,
     select?: Array<keyof AccountEntity>,
     relations?: Array<string>,
-  ): Promise<T | null> {
-    return (await this.manager.findOne(AccountEntity, {
-      where: {
-        email,
-      },
-      select,
-      relations,
-    })) as T | null;
+  ): Promise<AccountEntity | null> {
+    return await this.findOne({ email }, select, relations);
   }
 
   async save(entity: AccountEntity): Promise<void> {
@@ -31,5 +23,17 @@ export class AccountAndWalletRepository {
     } catch (e) {
       throw e;
     }
+  }
+
+  async findOne(
+    where: FindOptionsWhere<AccountEntity>,
+    select?: Array<keyof AccountEntity>,
+    relations?: Array<string>,
+  ): Promise<AccountEntity | null> {
+    return await this.manager.findOne(AccountEntity, {
+      where,
+      select,
+      relations,
+    });
   }
 }

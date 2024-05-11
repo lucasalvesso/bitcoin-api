@@ -9,11 +9,9 @@ export class BalanceWalletUseCase {
   constructor(private repository: AccountAndWalletRepository) {}
 
   async getBalanceByEmail(email: string): Promise<ResponseBalanceDto> {
-    const account = await this.repository.getByEmail<AccountEntity>(
-      email,
-      undefined,
-      ["wallet"],
-    );
+    const account = await this.repository.getByEmail(email, undefined, [
+      "wallet",
+    ]);
 
     if (!account) {
       throw new AccountDoesntExistsError();

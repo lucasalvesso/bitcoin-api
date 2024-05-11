@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { autoInjectable } from "tsyringe";
+import { injectable } from "tsyringe";
 import { DepositWalletUseCase } from "../use-case/DepositWalletUseCase";
 import { BalanceWalletUseCase } from "../use-case/BalanceWalletUseCase";
 import { DepositDto } from "../dto/DepositDto";
 
-@autoInjectable()
+@injectable()
 export class WalletController {
   constructor(
     private depositWalletUseCase: DepositWalletUseCase,

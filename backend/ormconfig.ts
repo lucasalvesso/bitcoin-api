@@ -15,6 +15,7 @@ export const AppDataSource = new DataSource({
   migrations: [__dirname + "/src/migrations/*.ts"],
   entitySkipConstructor: true,
   namingStrategy: new SnakeNamingStrategy(),
+  logging: true,
 });
 
 AppDataSource.initialize();

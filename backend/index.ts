@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import cors from "cors";
 import { routes } from "./src/routes";
 import { ErrorHandlerMiddleware } from "./src/middleware/ErrorHandlerMiddleware";
+import { schedule } from "node-cron";
+import { CronSaveBitcoinData } from "./src/service/CronSaveBitcoinData";
 
 dotenv.config({ path: "../.env" });
 
@@ -25,6 +27,8 @@ app.use(
     extended: true,
   }),
 );
+
+// schedule("* */30 * * * *", CronSaveBitcoinData);
 
 routes(app);
 

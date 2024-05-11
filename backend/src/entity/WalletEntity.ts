@@ -5,8 +5,9 @@ import {
   OneToMany,
   OneToOne,
 } from "typeorm";
-import { TransactionEntity } from "./TransactionEntity";
+import { TransactionWalletEntity } from "./TransactionWalletEntity";
 import { AccountEntity } from "./AccountEntity";
+import { BitcoinWalletEntity } from "./BitcoinWalletEntity";
 
 @Entity("wallet")
 export class WalletEntity {
@@ -19,8 +20,21 @@ export class WalletEntity {
   @OneToOne(() => AccountEntity, (account) => account.wallet)
   account: AccountEntity;
 
-  @OneToMany(() => TransactionEntity, (transaction) => transaction.wallet, {
-    cascade: true,
-  })
-  transactions: TransactionEntity[];
+  @OneToMany(
+    () => TransactionWalletEntity,
+    (transaction) => transaction.wallet,
+    {
+      cascade: true,
+    },
+  )
+  transactions: TransactionWalletEntity[];
+
+  @OneToOne(
+    () => BitcoinWalletEntity,
+    (bitcoinEntity) => bitcoinEntity.wallet,
+    {
+      cascade: true,
+    },
+  )
+  bitcoinWallet: BitcoinWalletEntity;
 }

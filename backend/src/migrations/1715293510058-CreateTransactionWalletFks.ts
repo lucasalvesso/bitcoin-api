@@ -5,7 +5,7 @@ export class CreateTransactionWalletFks1715293510058
 {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createForeignKey(
-      "transactions-history",
+      "transactions_wallet_history",
       new TableForeignKey({
         columnNames: ["wallet_id"],
         referencedColumnNames: ["id"],
@@ -17,7 +17,7 @@ export class CreateTransactionWalletFks1715293510058
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropForeignKey(
-      "transactions-history",
+      "transactions_wallet_history",
       "FK_transaction_walletId",
     );
   }

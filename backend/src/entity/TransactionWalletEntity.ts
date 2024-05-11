@@ -7,9 +7,9 @@ import {
 } from "typeorm";
 import { WalletEntity } from "./WalletEntity";
 
-@Entity("transactions-history")
-export class TransactionEntity {
-  constructor(item: Partial<TransactionEntity>) {
+@Entity("transactions_wallet_history")
+export class TransactionWalletEntity {
+  constructor(item: Partial<TransactionWalletEntity>) {
     item.amount = item.amount || 0;
 
     Object.assign(this, item);

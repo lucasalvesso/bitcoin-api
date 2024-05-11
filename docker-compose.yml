@@ -30,6 +30,15 @@ services:
       - ./db/servers.json:/pgadmin4/servers.json
       - ./pgpass:/pgpass
 
+  redis_bitcoin_api:
+    image: redis:latest
+    networks:
+      bitcoin_api_db:
+        ipv4_address: ${REDIS_HOST}
+    ports:
+      - ${REDIS_PORT}:${REDIS_PORT}
+    restart: always
+
 networks:
   bitcoin_api_db:
     driver: bridge

@@ -1,15 +1,31 @@
 import { DataSource, EntityManager } from "typeorm";
-import { injectable } from "tsyringe";
+import { AppDataSource } from "../../ormconfig";
+import { FindOptionsWhere } from "typeorm/find-options/FindOptionsWhere";
 
-@injectable()
-export class Database implements IDatabase {
-  constructor(public connection: DataSource) {}
+export abstract class Database<T> implements IDatabase<T> {
+  public connection: DataSource;
+  public manager: EntityManager;
 
-  getEntityManager(): EntityManager {
-    return this.connection.createEntityManager();
+  constructor() {
+    this.connection = AppDataSource;
+    this.manager = this.connection.createEntityManager();
   }
+
+  abstract findOne(
+    where: FindOptionsWhere<T>,
+    select?: Array<keyof T>,
+    relations?: Array<string>,
+  ): Promise<T | null>;
+
+  abstract save(entity: T): Promise<void>;
 }
 
-export interface IDatabase {
-  getEntityManager(): EntityManager;
+interface IDatabase<T> {
+  findOne(
+    where: FindOptionsWhere<T>,
+    select?: Array<keyof T>,
+    relations?: Array<string>,
+  ): Promise<T | null>;
+
+  save(entity: T): Promise<void>;
 }

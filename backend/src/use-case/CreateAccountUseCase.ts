@@ -4,13 +4,13 @@ import { AccountEntity } from "../entity/AccountEntity";
 import { PasswordHashService } from "../service/PasswordHashService";
 import { AccountAlreadyExistsError } from "../errors/AccountAlreadyExistsError";
 import { WalletEntity } from "../entity/WalletEntity";
-import { TransactionEntity } from "../entity/TransactionEntity";
+import { TransactionWalletEntity } from "../entity/TransactionWalletEntity";
 
 @injectable()
 export class CreateAccountUseCase {
   constructor(private repository: AccountAndWalletRepository) {}
 
-  async exec(entity: AccountEntity): Promise<void> {
+  async execute(entity: AccountEntity): Promise<void> {
     const accountAlreadyExists = await this.getAccountByEmail(entity);
 
     if (accountAlreadyExists) {
@@ -20,7 +20,7 @@ export class CreateAccountUseCase {
     entity.password = await PasswordHashService.hashPassword(entity.password);
 
     entity.wallet = new WalletEntity();
-    entity.wallet.transactions = [new TransactionEntity({ amount: 0 })];
+    entity.wallet.transactions = [new TransactionWalletEntity({ amount: 0 })];
     await this.repository.save(entity);
   }
 

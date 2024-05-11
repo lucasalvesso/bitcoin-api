@@ -2,16 +2,14 @@ import { Application } from "express";
 import Account from "./routes/account";
 import Login from "./routes/login";
 import Wallet from "./routes/account-wallet";
-import { CreateDatabaseConnectionMiddleware } from "./middleware/CreateDatabaseConnectionMiddleware";
+import Bitcoin from "./routes/bitcoin";
 import { TokenAuthValidateMiddleware } from "./middleware/TokenAuthValidateMiddleware";
 
 export const routes = (app: Application) => {
-  app.use("/account", [CreateDatabaseConnectionMiddleware], Account);
-  app.use("/login", [CreateDatabaseConnectionMiddleware], Login);
+  app.use("/account", Account);
+  app.use("/login", Login);
 
-  app.use(
-    "/account/",
-    [TokenAuthValidateMiddleware, CreateDatabaseConnectionMiddleware],
-    Wallet,
-  );
+  app.use("/account/", [TokenAuthValidateMiddleware], Wallet);
+
+  app.use("/btc", [TokenAuthValidateMiddleware], Bitcoin);
 };
