@@ -2,13 +2,19 @@
 
 Projeto que tem como objetivo uma api de investimentos.
 
+. Express usado como framework para o servidor
+
 . Tsyringe para injeção de dependências
 
 . Cron para obter dados de compra/venda da API MercadoBitcoin
 
+. Banco Postgresql como sgbd principal 
+
 . Salva cache de novos dados em cache Redis
 
 . Salva histórico de transações (depósitos, compra e venda);
+
+. MailerSend usado para enviar emails de notificação;
 
 
 ## Como começar
