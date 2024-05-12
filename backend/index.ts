@@ -7,6 +7,7 @@ import { routes } from "./src/routes";
 import { ErrorHandlerMiddleware } from "./src/middleware/ErrorHandlerMiddleware";
 import { schedule } from "node-cron";
 import { CronSaveBitcoinData } from "./src/service/CronSaveBitcoinData";
+import { CronDeleteHistoryBitcoin } from "./src/service/CronDeleteHistoryBitcoin";
 
 dotenv.config({ path: "../.env" });
 
@@ -28,7 +29,11 @@ app.use(
   }),
 );
 
-// schedule("* */30 * * * *", CronSaveBitcoinData);
+// runs each 10 seconds
+schedule("*/10 * * * * *", CronSaveBitcoinData);
+
+// run each hour
+schedule("0 0 */1 * * *", CronDeleteHistoryBitcoin);
 
 routes(app);
 

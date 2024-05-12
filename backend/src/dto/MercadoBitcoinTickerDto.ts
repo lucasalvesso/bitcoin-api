@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export class MercadoBitcoinTickerDto {
   constructor(data: Partial<MercadoBitcoinTickerDto>) {
     if (!data.high) {
@@ -40,7 +42,9 @@ export class MercadoBitcoinTickerDto {
       buy: data.buy,
       sell: data.sell,
       open: data.open,
-      date: new Date(data.date).toISOString(),
+      date: moment(
+        Number(String(data.date).padEnd(String(data.date).length + 3, "0")),
+      ).toISOString(),
     });
   }
   high: number;

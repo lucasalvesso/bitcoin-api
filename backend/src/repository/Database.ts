@@ -24,6 +24,8 @@ export abstract class Database<T> implements IDatabase<T> {
   ): Promise<T[]>;
 
   save?(entity: T): Promise<void>;
+
+  delete?(where: string[]): Promise<void>;
 }
 
 interface IDatabase<T> {
@@ -40,4 +42,6 @@ interface IDatabase<T> {
   ): Promise<T[]>;
 
   save?(entity: T): Promise<void>;
+
+  delete?(where: string[]): Promise<void>;
 }

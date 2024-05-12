@@ -5,6 +5,7 @@ import Wallet from "./routes/account-wallet";
 import Bitcoin from "./routes/bitcoin";
 import Volume from "./routes/volume";
 import Extract from "./routes/extract";
+import History from "./routes/history";
 import { TokenAuthValidateMiddleware } from "./middleware/TokenAuthValidateMiddleware";
 
 export const routes = (app: Application) => {
@@ -14,4 +15,5 @@ export const routes = (app: Application) => {
   app.use("/btc", [TokenAuthValidateMiddleware], Bitcoin);
   app.use("/volume", [TokenAuthValidateMiddleware], Volume);
   app.use("/extract", [TokenAuthValidateMiddleware], Extract);
+  app.use("/history", [TokenAuthValidateMiddleware], History);
 };
