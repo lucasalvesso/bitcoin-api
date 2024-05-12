@@ -8,7 +8,7 @@ export class ResponseExtractDto {
       operations.push({
         operation: "deposit",
         amount: i.amount,
-        date: moment(i.createdAt).toISOString(),
+        date: moment(i.createdAt).utc(true).toISOString(),
       });
     });
 
@@ -16,7 +16,7 @@ export class ResponseExtractDto {
       operations.push({
         operation: "sell",
         amount: i.amount,
-        date: moment(i.createdAt).toISOString(),
+        date: moment(i.createdAt).utc(true).toISOString(),
       });
     });
 
@@ -24,7 +24,7 @@ export class ResponseExtractDto {
       operations.push({
         operation: "buy",
         amount: i.amount,
-        date: moment(i.createdAt).toISOString(),
+        date: moment(i.createdAt).utc(true).toISOString(),
       });
     });
 

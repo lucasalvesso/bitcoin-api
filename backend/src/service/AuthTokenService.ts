@@ -4,6 +4,7 @@ import { BadRequestError } from "../errors/model/BadRequestError";
 import { AuthorizationTokenExpiredError } from "../errors/AuthorizationTokenExpiredError";
 
 export class AuthTokenService {
+  private static tokenExpirationTime = "1h";
   static verifyTokenIsValid(token: string): JwtPayload | string | undefined {
     try {
       return verify(
@@ -26,7 +27,7 @@ export class AuthTokenService {
       return sign(
         { email: entity.email, password: entity.password },
         process.env.JWT_SECRET_KEY || "",
-        { expiresIn: "1h" },
+        { expiresIn: this.tokenExpirationTime },
       );
     } catch (e) {
       console.error(e);

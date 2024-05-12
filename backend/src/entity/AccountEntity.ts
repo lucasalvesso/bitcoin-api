@@ -10,15 +10,17 @@ import { WalletEntity } from "./WalletEntity";
 @Entity("account")
 export class AccountEntity {
   constructor(data: Partial<AccountEntity>) {
-    if (!data.name) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (typeof data.name !== "string") {
       throw new Error("name not valid");
     }
 
-    if (!data.email) {
+    if (!data.email || !emailRegex.test(data.email)) {
       throw new Error("email not valid");
     }
 
-    if (!data.password) {
+    if (typeof data.password !== "string") {
       throw new Error("password not valid");
     }
 

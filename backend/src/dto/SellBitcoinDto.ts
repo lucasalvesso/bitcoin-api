@@ -1,7 +1,7 @@
 export class SellBitcoinDto {
   constructor(data: Partial<SellBitcoinDto>) {
-    if (!data.amount) {
-      throw new Error("amount not found");
+    if (typeof data.amount !== "number") {
+      throw new Error("amount not valid");
     }
 
     Object.assign(this, { amount: data.amount });

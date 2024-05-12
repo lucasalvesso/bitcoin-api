@@ -1,11 +1,11 @@
 export class DepositDto {
   constructor(data: Partial<DepositDto>) {
-    if (!data.amount) {
-      throw new Error("Deposit not found");
+    if (typeof data.amount !== "number") {
+      throw new Error("deposit not valid");
     }
 
     if (!data.email) {
-      throw new Error("Deposit not found");
+      throw new Error("email not valid");
     }
 
     Object.assign(this, { amount: data.amount, email: data.email });

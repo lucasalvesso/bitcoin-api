@@ -63,7 +63,7 @@ export class SellBitcoinUseCase {
     return await this.accountAndWalletRepository.getByEmail(email, undefined, [
       "wallet",
       "wallet.bitcoinWallet",
-      "wallet.bitcoinWallet.buyTransactions",
+      "wallet.bitcoinWallet.sellTransactions",
     ]);
   }
 }

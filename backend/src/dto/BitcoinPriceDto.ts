@@ -9,8 +9,8 @@ export class BitcoinPriceDto {
     }
 
     Object.assign(this, {
-      buy: Number(data.buy.toFixed(2)),
-      sell: Number(data.sell.toFixed(2)),
+      buy: Number(data.buy).toFixed(2),
+      sell: Number(data.sell).toFixed(2),
     });
   }
 

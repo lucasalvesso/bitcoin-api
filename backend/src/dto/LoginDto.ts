@@ -2,11 +2,12 @@ import { AccountEntity } from "../entity/AccountEntity";
 
 export class LoginDto {
   constructor(data: Partial<LoginDto>) {
-    if (!data.email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!data.email || !emailRegex.test(data.email)) {
       throw new Error("email not valid");
     }
 
-    if (!data.password) {
+    if (typeof data.password !== "string") {
       throw new Error("password not valid");
     }
 
