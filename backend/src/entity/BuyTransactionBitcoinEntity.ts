@@ -8,7 +8,7 @@ import {
 import { WalletEntity } from "./WalletEntity";
 import { BitcoinWalletEntity } from "./BitcoinWalletEntity";
 
-@Entity("sell_transactions_bitcoin_history")
+@Entity("buy_transactions_bitcoin_history")
 export class BuyTransactionBitcoinEntity {
   constructor(item: Partial<BuyTransactionBitcoinEntity>) {
     if (!item.paid) {
@@ -45,4 +45,7 @@ export class BuyTransactionBitcoinEntity {
   @ManyToOne(() => BitcoinWalletEntity, (wallet) => wallet.buyTransactions)
   @JoinColumn()
   wallet: WalletEntity;
+
+  @Column({ type: "timestamp" })
+  createdAt: string;
 }

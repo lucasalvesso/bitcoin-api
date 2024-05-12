@@ -45,4 +45,7 @@ export class SellTransactionBitcoinEntity {
   @ManyToOne(() => BitcoinWalletEntity, (wallet) => wallet.sellTransactions)
   @JoinColumn()
   wallet: WalletEntity;
+
+  @Column({ type: "timestamp" })
+  createdAt: string;
 }

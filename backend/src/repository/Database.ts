@@ -11,21 +11,33 @@ export abstract class Database<T> implements IDatabase<T> {
     this.manager = this.connection.createEntityManager();
   }
 
-  abstract findOne(
+  findOne?(
     where: FindOptionsWhere<T>,
     select?: Array<keyof T>,
     relations?: Array<string>,
   ): Promise<T | null>;
 
-  abstract save(entity: T): Promise<void>;
+  find?(
+    where: FindOptionsWhere<T>,
+    select?: Array<keyof T>,
+    relations?: Array<string>,
+  ): Promise<T[]>;
+
+  save?(entity: T): Promise<void>;
 }
 
 interface IDatabase<T> {
-  findOne(
+  findOne?(
     where: FindOptionsWhere<T>,
     select?: Array<keyof T>,
     relations?: Array<string>,
   ): Promise<T | null>;
 
-  save(entity: T): Promise<void>;
+  find?(
+    where: FindOptionsWhere<T>,
+    select?: Array<keyof T>,
+    relations?: Array<string>,
+  ): Promise<T[]>;
+
+  save?(entity: T): Promise<void>;
 }

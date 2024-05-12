@@ -13,12 +13,12 @@ import { SellTransactionBitcoinEntity } from "./SellTransactionBitcoinEntity";
 @Entity("bitcoin_wallet")
 export class BitcoinWalletEntity {
   constructor(item: Partial<BitcoinWalletEntity>) {
-    item.amount = item.amount || 0;
-
     Object.assign(this, {
-      amount: item.amount,
+      amount: item.amount || 0,
       walletId: item.walletId,
       id: item.id,
+      buyTransactions: item.buyTransactions,
+      sellTransactions: item.sellTransactions,
     });
   }
 

@@ -24,6 +24,7 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "mailersend": "^2.2.0",
+    "moment": "^2.30.1",
     "pg": "^8.11.5",
     "redis": "^4.6.13",
     "tsyringe": "^4.8.0",
