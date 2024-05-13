@@ -29,17 +29,17 @@ export class SellBitcoinUseCase {
     const amountBitcoinToSell =
       sellBitcoinDto.amount / bitcoinCurrentPrice.sell;
 
-    if (amountBitcoinToSell > account.wallet.bitcoinWallet.amount) {
+    if (amountBitcoinToSell > (account.wallet.bitcoinWallet?.amount || 0)) {
       throw new NoEnoughBitcoinError();
     }
 
     account.wallet.balance += sellBitcoinDto.amount;
 
     account.wallet.bitcoinWallet = new BitcoinWalletEntity({
-      amount: account.wallet.bitcoinWallet.amount - amountBitcoinToSell,
-      id: account.wallet.bitcoinWallet.id,
+      amount: account.wallet.bitcoinWallet?.amount - amountBitcoinToSell,
+      id: account.wallet.bitcoinWallet?.id,
       walletId: account.walletId,
-      sellTransactions: account.wallet.bitcoinWallet.sellTransactions || [],
+      sellTransactions: account.wallet.bitcoinWallet?.sellTransactions || [],
     });
 
     account.wallet.bitcoinWallet.sellTransactions?.push(

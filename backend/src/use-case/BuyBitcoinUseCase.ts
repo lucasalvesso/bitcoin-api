@@ -36,11 +36,11 @@ export class BuyBitcoinUseCase {
 
     account.wallet.bitcoinWallet = new BitcoinWalletEntity({
       amount: account.wallet.bitcoinWallet
-        ? account.wallet.bitcoinWallet.amount + amountBitcoinBought
+        ? account.wallet.bitcoinWallet?.amount + amountBitcoinBought
         : amountBitcoinBought,
       id: account.wallet.bitcoinWallet?.id,
       walletId: account.walletId,
-      buyTransactions: account.wallet.bitcoinWallet.buyTransactions || [],
+      buyTransactions: account.wallet.bitcoinWallet?.buyTransactions || [],
     });
 
     account.wallet.bitcoinWallet.buyTransactions?.push(

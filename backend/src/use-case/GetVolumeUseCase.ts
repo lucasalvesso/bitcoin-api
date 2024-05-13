@@ -17,13 +17,13 @@ export class GetVolumeUseCase {
     const todayInitDate = todayInit.clone().startOf("day").toISOString();
     const todayEndDate = todayInit.clone().endOf("day").toISOString();
     const [buys, sells] = await Promise.all([
-      this.sellTransactionBitcoinRepository.find(
+      this.buyTransactionBitcoinRepository.find(
         {
           createdAt: Between(todayInitDate, todayEndDate),
         },
         ["amount"],
       ),
-      this.buyTransactionBitcoinRepository.find(
+      this.sellTransactionBitcoinRepository.find(
         {
           createdAt: Between(todayInitDate, todayEndDate),
         },

@@ -48,3 +48,10 @@ O projeto usa o node-cron para executar duas tarefas agendadas:
 ## Envio de Emails
 
 Este projeto utiliza a API do MailerSend para enviar emails. Certifique-se de configurar corretamente as credenciais de API no arquivo `.env`.
+
+
+## Testes unitários
+
+Para executar testes, execute o seguinte comando na raiz do projeto:
+
+npm run test
