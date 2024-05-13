@@ -1,7 +1,7 @@
 export class DepositDto {
   constructor(data: Partial<DepositDto>) {
     if (typeof data.amount !== "number") {
-      throw new Error("deposit not valid");
+      throw new Error("amount not valid");
     }
 
     if (!data.email) {

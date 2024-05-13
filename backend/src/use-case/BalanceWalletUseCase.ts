@@ -1,5 +1,4 @@
 import { AccountAndWalletRepository } from "../repository/AccountAndWalletRepository";
-import { AccountEntity } from "../entity/AccountEntity";
 import { AccountDoesntExistsError } from "../errors/AccountDoesntExistsError";
 import { ResponseBalanceDto } from "../dto/ResponseBalanceDto";
 import { injectable } from "tsyringe";

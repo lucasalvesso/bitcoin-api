@@ -40,7 +40,6 @@ export class ResponseExtractDto {
 
   name: string;
   email: string;
-  balance: number;
   operations: Operation[];
 }
 

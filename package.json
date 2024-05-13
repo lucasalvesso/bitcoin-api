@@ -6,7 +6,7 @@
   "scripts": {
     "migrations": "npm run migration:run --prefix backend",
     "backend": "npm run migrations && npm run server --prefix backend",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run test --prefix backend"
   },
   "author": "",
   "license": "ISC"

@@ -32,7 +32,7 @@ export class BitcoinController {
       req.loggedUser.email,
       new BuyBitcoinDto(req.body),
     );
-    res.status(200).json({ messsage: "Bitcoin bought successfully" });
+    res.status(200).json({ message: "Bitcoin bought successfully" });
   }
 
   async getPosition(req: Request, res: Response) {
